@@ -131,7 +131,7 @@ class FindDevice extends StatelessWidget {
                     builder: (context, snapshot) {
                       SmartBandResult result = snapshot.data;
                       String text = 'Encontrando dispositivos...';
-                      if (result.finish) {
+                      if (result!= null && result.finish) {
                         text =
                             '${result.devices.values.length} dispositivos encontrados';
                       }
@@ -165,6 +165,9 @@ class FindDevice extends StatelessWidget {
                             result.devices.values.elementAt(index);
 
                         return ListTile(
+                            onTap: () {
+                              bloc.connectDevice(device);
+                            },
                             title: Column(
                           children: <Widget>[
                             Chip(
@@ -173,7 +176,7 @@ class FindDevice extends StatelessWidget {
                                   device.localName + ' ',
                                   style: biggerFont,
                                 )),
-                            Text(device.device.id.toString())
+                            Text(device.id.toString())
                           ],
                         ));
                       });
